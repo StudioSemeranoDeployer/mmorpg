@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MetaVerse MMORPG - Un Mondo Virtuale su Blockchain</title>
+    <style>
+        :root {
+            --primary-color: #6c63ff;
+            --secondary-color: #ff6584;
+            --dark-color: #2a2a46;
+            --light-color: #f9f9f9;
+            --accent-color: #38ffdd;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark-color);
+            color: white;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--dark-color), #1a1a36);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--accent-color);
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--primary-color), #8a84ff);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(108, 99, 255, 0.5);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary-color);
+        }
+        
+        .hero {
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080"><rect width="1920" height="1080" fill="%232a2a46"/><circle cx="960" cy="540" r="400" fill="%232d2d4d"/><circle cx="960" cy="540" r="300" fill="%23303052"/><circle cx="960" cy="540" r="200" fill="%23343458"/><circle cx="960" cy="540" r="100" fill="%23393963"/></svg>') no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, transparent 0%, var(--dark-color) 80%);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+        }
+        
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: #d4d4ff;
+        }
+        
+        .accent {
+            color: var(--accent-color);
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .features {
+            padding: 6rem 0;
+            background-color: #1a1a36;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .section-title p {
+            color: #bdbddb;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background: linear-gradient(145deg, #252542, #1e1e36);
+            border-radius: 10px;
+            padding: 2rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, var(--primary-color), #8a84ff);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .feature-icon i {
+            font-size: 1.8rem;
+            color: white;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .feature-card p {
+            color: #bdbddb;
+        }
+        
+        .roadmap {
+            padding: 6rem 0;
+            background-color: var(--dark-color);
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            height: 100%;
+            width: 4px;
+            background: var(--primary-color);
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item {
+            padding: 2rem 0;
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .timeline-content {
+            width: 45%;
+            background: linear-gradient(145deg, #252542, #1e1e36);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .timeline-content::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .left {
+            left: 0;
+        }
+        
+        .left::after {
+            right: -40px;
+        }
+        
+        .right {
+            left: 55%;
+        }
+        
+        .right::after {
+            left: -40px;
+        }
+        
+        .timeline-content h3 {
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+        
+        .timeline-content ul {
+            padding-left: 1.5rem;
+        }
+        
+        .timeline-content ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .nft-showcase {
+            padding: 6rem 0;
+            background-color: #1a1a36;
+        }
+        
+        .nft-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .nft-card {
+            background: linear-gradient(145deg, #252542, #1e1e36);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .nft-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nft-image {
+            height: 300px;
+            background: linear-gradient(45deg, #3a3a6a, #4a4a8a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        .nft-info {
+            padding: 1.5rem;
+        }
+        
+        .nft-info h3 {
+            margin-bottom: 0.5rem;
+        }
+        
+        .nft-price {
+            display: flex;
+            align-items: center;
+            margin-top: 1rem;
+        }
+        
+        .eth-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 0.5rem;
+            background-color: #bdbddb;
+            border-radius: 50%;
+        }
+        
+        .team {
+            padding: 6rem 0;
+            background-color: var(--dark-color);
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .team-member {
+            background: linear-gradient(145deg, #252542, #1e1e36);
+            border-radius: 10px;
+            overflow: hidden;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .member-image {
+            height: 250px;
+            background: linear-gradient(45deg, #3a3a6a, #4a4a8a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+        
+        .member-info {
+            padding: 1.5rem;
+        }
+        
+        .member-info h3 {
+            margin-bottom: 0.5rem;
+        }
+        
+        .member-info p {
+            color: #bdbddb;
+            margin-bottom: 1rem;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: background 0.3s, transform 0.3s;
+        }
+        
+        .social-link:hover {
+            background: var(--accent-color);
+            transform: translateY(-3px);
+        }
+        
+        .cta {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #2a2a46, #1a1a36);
+            text-align: center;
+        }
+        
+        .cta-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta p {
+            margin-bottom: 2rem;
+            color: #d4d4ff;
+        }
+        
+        .newsletter {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .newsletter input {
+            flex: 1;
+            padding: 0.7rem 1rem;
+            border-radius: 30px 0 0 30px;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+        }
+        
+        .newsletter button {
+            padding: 0 1.5rem;
+            border-radius: 0 30px 30px 0;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .newsletter button:hover {
+            background: #8a84ff;
+        }
+        
+        footer {
+            background-color: #1a1a36;
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-color);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-column ul li a {
+            color: #bdbddb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #3a3a6a;
+            color: #8a8aaa;
+        }
+        
+        @media (max-width: 992px) {
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+            
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-content {
+                width: calc(100% - 60px);
+                left: 60px !important;
+            }
+            
+            .timeline-content::after {
+                left: -30px !important;
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0.5rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                text-align: center;
+                margin-bottom: 1rem;
+            }
+            
+            .feature-grid, .nft-grid, .team-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container nav-container">
+            <div class="logo">
+                <h1>MetaVerse MMORPG</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#features">Caratteristiche</a></li>
+                    <li><a href="#roadmap">Roadmap</a></li>
+                    <li><a href="#nft">NFT</a></li>
+                    <li><a href="#team">Team</a></li>
+                    <li><a href="#" class="btn btn-outline">Connetti Wallet</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container hero-content">
+            <h2>Entra nel <span class="accent">Nuovo Mondo Virtuale</span> Potenziato dalla Blockchain</h2>
+            <p>Un universo persistente dove puoi esplorare, costruire, commerciare e guadagnare. Possiedi veramente i tuoi asset digitali attraverso NFT e criptovalute.</p>
+            <div class="hero-buttons">
+                <a href="#" class="btn">Inizia l'Avventura</a>
+                <a href="#" class="btn btn-outline">Scopri di Più</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Caratteristiche Principali</h2>
+                <p>Un'esperienza MMORPG rivoluzionaria che unisce gaming tradizionale, metaverso e tecnologia blockchain.</p>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <h3>Gaming Immersivo</h3>
+                    <p>Esplora un vasto mondo 3D con avatar personalizzabili e meccaniche di gameplay coinvolgenti su PC, mobile e VR.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <h3>Economia Blockchain</h3>
+                    <p>Possiedi veramente i tuoi asset digitali come NFT, scambia su marketplace e guadagna token attraverso il gameplay.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Community & Governance</h3>
+                    <p>Partecipa alle decisioni sullo sviluppo del gioco attraverso votazioni on-chain e un sistema di governance decentralizzato.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-map"></i>
+                    </div>
+                    <h3>Terreni Virtuali</h3>
+                    <p>Acquista, sviluppa e monetizza terreni nel metaverso creando le tue esperienze uniche per altri giocatori.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3>Costruzione</h3>
+                    <p>Crea strutture, edifici e asset personalizzati che possono essere tokenizzati e venduti come NFT unici.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-vr-cardboard"></i>
+                    </div>
+                    <h3>Cross-Platform</h3>
+                    <p>Accedi al metaverso da PC, dispositivi mobili o visori VR per un'esperienza adatta a ogni situazione.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="roadmap" id="roadmap">
+        <div class="container">
+            <div class="section-title">
+                <h2>La Nostra Roadmap</h2>
+                <p>Il percorso di sviluppo del nostro metaverso MMORPG, dalla fase MVP fino alla piena maturità.</p>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content left">
+                        <h3>Fase 1: MVP</h3>
+                        <ul>
+                            <li>Mondo virtuale base esplorabile</li>
+                            <li>Integrazione wallet Ethereum</li>
+                            <li>NFT basilari per avatar e oggetti</li>
+                            <li>Client PC, app mobile semplificata</li>
+                            <li>Supporto VR di base</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content right">
+                        <h3>Fase 2: Espansione</h3>
+                        <ul>
+                            <li>Token di utilità ERC-20</li>
+                            <li>Sistema di crafting e risorse</li>
+                            <li>Meccaniche play-to-earn</li>
+                            <li>Terreni virtuali acquistabili</li>
+                            <li>Governance comunitaria</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content left">
+                        <h3>Fase 3: Crescita</h3>
+                        <ul>
+                            <li>Sistema di costruzione avanzato</li>
+                            <li>5+ regioni esplorabili</li>
+                            <li>Eventi in-game programmati</li>
+                            <li>Integrazione Layer 2 Ethereum</li>
+                            <li>SDK per creatori di contenuti</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content right">
+                        <h3>Fase 4: Maturità</h3>
+                        <ul>
+                            <li>Ecosistema completo per creator</li>
+                            <li>Integrazione multi-chain</li>
+                            <li>DAO completamente funzionante</li>
+                            <li>Interoperabilità con altri metaversi</li>
+                            <li>Espansione su altre piattaforme</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="nft-showcase" id="nft">
+        <div class="container">
+            <div class="section-title">
+                <h2>I Nostri NFT</h2>
+                <p>Possiedi veramente i tuoi asset nel gioco. Dalle skin rare ai terreni virtuali, ogni NFT è unico e scambiabile.</p>
+            </div>
+            <div class="nft-grid">
+                <div class="nft-card">
+                    <div class="nft-image">Avatar Leggendario</div>
+                    <div class="nft-info">
+                        <h3>Guerriero Celeste</h3>
+                        <p>Skin avatar ultra rara con abilità speciali</p>
+                        <div class="nft-price">
+                            <div class="eth-icon"></div>
+                            <span>0.25 ETH</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="nft-card">
+                    <div class="nft-image">Terreno Prime</div>
+                    <div class="nft-info">
+                        <h3>Parcella Centrale</h3>
+                        <p>Terreno edificabile al centro della mappa principale</p>
+                        <div class="nft-price">
+                            <div class="eth-icon"></div>
+                            <span>1.5 ETH</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="nft-card">
+                    <div class="nft-image">Oggetto Mistico</div>
+                    <div class="nft-info">
+                        <h3>Amuleto di Potere</h3>
+                        <p>Artefatto raro con bonus unici per il possessore</p>
+                        <div class="nft-price">
+                            <div class="eth-icon"></div>
+                            <span>0.1 ETH</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="nft-card">
+                    <div class="nft-image">Edificio Virtuale</div>
+                    <div class="nft-info">
+                        <h3>Torre del Mago</h3>
+                        <p>Struttura prefabbricata per il tuo terreno virtuale</p>
+                        <div class="nft-price">
+                            <div class="eth-icon"></div>
+                            <span>0.35 ETH</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="team" id="team">
+        <div class="container">
+            <div class="section-title">
+                <h2>Il Nostro Team</h2>
+                <p>Un gruppo di appassionati di gaming, blockchain e sviluppo software che stanno costruendo il futuro del metaverso.</p>
+            </div>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-image">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="member-info">
+                        <h3>Marco Rossi</h3>
+                        <p>CEO & Game Designer</p>
+                        <div class="social-links">
+                            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-image">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="member-info">
+                        <h3>Laura Bianchi</h3>
+                        <p>Lead Developer</p>
+                        <div class="social-links">
+                            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-image">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="member-info">
+                        <h3>Giovanni Verdi</h3>
+                        <p>Blockchain Architect</p>
+                        <div class="social-links">
+                            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-image">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="member-info">
+                        <h3>Sofia Neri</h3>
+                        <p>Art Director</p>
+                        <div class="social-links">
+                            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Unisciti alla Community</h2>
+                <p>Resta aggiornato sugli sviluppi, partecipa alla closed alpha e assicurati l'accesso anticipato ai nostri NFT esclusivi.</p>
+                <form class="newsletter">
+                    <input type="email" placeholder="La tua email...">
+                    <button type="submit">Iscriviti</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>MetaVerse MMORPG</h3>
+                    <ul>
